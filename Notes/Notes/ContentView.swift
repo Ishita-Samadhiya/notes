@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var notes = [Note]()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            List(notes) { note in
+                NavigationLink(destination: DetailNoteView(note: note)) {
+                    Text(note.title)
+                }
+            }
+            .navigationTitle("Notes")
+            .navigationBarItems(trailing:
+                NavigationLink(destination: NewNoteView(notes: $notes)) {
+                    Image(systemName: "plus")
+                }
+            )
         }
-        .padding()
     }
 }
 
